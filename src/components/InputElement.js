@@ -1,4 +1,4 @@
-import React, {useState, Fragment, useContext} from 'react'
+import React, {useState, Fragment, useContext, useEffect} from 'react'
 import styled from 'styled-components';
 
 import MatrixContext from './MatrixContext';
@@ -20,6 +20,9 @@ const InputElement = (props) => {
     matrix.onMatrixElementChange(props.row, props.column, e.target.value);
   }
 
+  useEffect(() => {
+    useElement(0);
+  },[matrix.matrix.rows, matrix.matrix.columns])
 
   return (
     <Fragment>
