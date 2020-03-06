@@ -8,14 +8,16 @@ const Table = styled.table`
   margin: 0 auto;
   /* margin-top: 20vh; */
   border: 1px solid black;
-  height: 40vh;
-  width: 40vh;
+  /* height: 40vh;
+  width: 40vh; */
   text-align: center;
   flex: 8;
 `;
 
 const TableElement = styled.td`
   border: 1px solid black;
+  height: 40px;
+  width: 40px;
 `;
 
 const WholeApp = styled.div`
@@ -31,7 +33,6 @@ const Input = styled.div`
   display: flex;
   align-items: center;
 
-  /* margin-top: 5vh; */
 `;
 const MyForm = styled.form`
   display: flex;
@@ -51,7 +52,6 @@ const App = () => {
   const [columns, useColumns] = useState(1);
   const [matrix, useMatrix] = useState(new Matrix(rows, columns))
   
-  // const [matrix, useMatrix] = useState(undefined);
   const formHandler = (e) => {
     e.preventDefault();
     useMatrix(new Matrix(rows, columns));
@@ -81,11 +81,11 @@ const App = () => {
       </Input>
     <Table>
       <tbody>
-        {matrix.map(row => {
+        {matrix.map((row, rowIndex) => {
           return (
-            <tr>
-              {row.map(element => {
-                return <TableElement>{element}</TableElement>;
+            <tr key={`${rowIndex}`}>
+              {row.map((element, columnIndex) => {
+                return <TableElement key={`${rowIndex}${columnIndex}`}>{element}</TableElement>;
               })}
             </tr>
           );
