@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -20,7 +23,6 @@
     "matrix.js": "0.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "styled-components": "^5.0.1",
-    "uninstall": "0.0.0"
+    "styled-components": "^5.0.1"
   }
 }

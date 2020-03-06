@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import styled from "styled-components";
 
+import InputElement from './InputElement';
+import MatrixContext from './MatrixContext';
 import { Matrix } from "./matrix.js";
 
 const Table = styled.table`
@@ -16,8 +18,8 @@ const Table = styled.table`
 
 const TableElement = styled.td`
   border: 1px solid black;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
 `;
 
 const WholeApp = styled.div`
@@ -44,30 +46,46 @@ const MyForm = styled.form`
   }
 `;
 
+const ElementInput = styled.input`
+  width: 20px;
+  height: 20px;
+`;
+
 
 
 const App = () => {
   
+
   const [rows, useRows] = useState(1);
   const [columns, useColumns] = useState(1);
-  const [matrix, useMatrix] = useState(new Matrix(rows, columns))
+  //const [matrix, useMatrix] = useState(new Matrix(rows, columns))
+  
+  const matrix = useContext(MatrixContext)
   
   const formHandler = (e) => {
     e.preventDefault();
-    useMatrix(new Matrix(rows, columns));
+    matrix.onMatrixSizeChange(parseInt(rows), parseInt(columns));
   }
   
   const rowsChange = (e) => {
-    useRows(e.target.value);
+    useRows((e.target.value));
   }
   
   const columnsChange = (e) => {
-    useColumns(e.target.value);
+    useColumns((e.target.value));
   }
+
+  // const elementChange = (e) => {
+
+  //   console.log(e.target.value);
+  // }
+
+
   
   return (
     
     (
+     
       <WholeApp>
         <h1>Matrix Builder</h1>
         <Input>
@@ -79,13 +97,16 @@ const App = () => {
       <button onClick={(e) => formHandler(e)} type="submit">Submit</button>
       </MyForm>
       </Input>
+      <button onClick={() => console.log(matrix)}></button>
     <Table>
       <tbody>
-        {matrix.map((row, rowIndex) => {
+        {matrix.matrix.map((row, rowIndex) => {
           return (
             <tr key={`${rowIndex}`}>
               {row.map((element, columnIndex) => {
-                return <TableElement key={`${rowIndex}${columnIndex}`}>{element}</TableElement>;
+                return (<TableElement key={`${rowIndex}${columnIndex}`}>{ 
+                <InputElement row={rowIndex} column={columnIndex} /> 
+                }</TableElement>);
               })}
             </tr>
           );
